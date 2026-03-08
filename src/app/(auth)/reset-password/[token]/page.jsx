@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Lock, Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";
-import { resetPassword } from "../../../lib/api";
+import { resetPassword } from "../../../../lib/api";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "../../../../public/assets/logo.png";
