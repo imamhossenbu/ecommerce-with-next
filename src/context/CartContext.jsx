@@ -30,19 +30,27 @@ export const CartProvider = ({ children }) => {
   }, [cartItems, isInitialized]);
 
   // Add item logic
-  const addToCart = (product, quantity) => {
-    setCartItems(prevItems => {
-      const isExist = prevItems.find(item => item._id === product._id);
-      if (isExist) {
-        toast.success(`Increased ${product.name} quantity`);
-        return prevItems.map(item => 
-          item._id === product._id ? { ...item, quantity: item.quantity + quantity } : item
-        );
-      }
-      toast.success(`${product.name} added to cart`);
-      return [...prevItems, { ...product, quantity }];
-    });
-  };
+const addToCart = (product, quantity) => {
+  let alreadyExists = false;
+
+  setCartItems(prevItems => {
+    const isExist = prevItems.find(item => item._id === product._id);
+    if (isExist) {
+      alreadyExists = true;
+      return prevItems.map(item => 
+        item._id === product._id ? { ...item, quantity: item.quantity + quantity } : item
+      );
+    }
+    alreadyExists = false;
+    return [...prevItems, { ...product, quantity }];
+  });
+
+  if (alreadyExists) {
+    toast.success(`Increased ${product.name} quantity`, { id: product._id });
+  } else {
+    toast.success(`${product.name} added to cart`, { id: product._id });
+  }
+};
 
   // Remove item logic
   const removeFromCart = (id) => {

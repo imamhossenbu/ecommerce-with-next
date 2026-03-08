@@ -15,11 +15,6 @@ export default function ProductCard({ product }) {
     
 
     addToCart(product, 1); 
-    
-
-    toast.success(`${name} added to cart!`, {
-      style: { fontSize: '12px', fontWeight: 'bold' }
-    });
   };
 
   return (
