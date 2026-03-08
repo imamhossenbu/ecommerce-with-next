@@ -1,26 +1,401 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+
+/* ================================================================
+  1. DESIGN SYSTEM (Tailwind 4.0 Theme)
+  ================================================================
+*/
+@theme {
+  /* Brand Colors */
+  --color-primary: #f6e6d5;        /* Beige background */
+  --color-secondary: #f5e6d3;      /* Alternative beige */
+  --color-accent: #e899ac;         /* Pink accent */
+  --color-accent-hover: #d06f8b;   /* Darker pink */
+  --color-dark: #1a1a1a;           /* Deep text/black */
+  --color-muted: #717171;          /* Muted grey */
+  --color-border: #eeeeee;         /* Light borders */
+
+  /* Typography */
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Spacing & Radius */
+  --radius-pill: 50px;
+  --radius-card: 8px;
+  --spacing-header: 80px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ================================================================
+  2. BASE STYLES
+  ================================================================
+*/
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: white;
+    color: var(--color-dark);
+    font-family: var(--font-sans);
+    /* line-height: 1.6; */
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, .heading-font {
+    font-weight: 500;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s ease;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
 }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffd6e0;
+}
+
+/* ================================================================
+  3. REUSABLE COMPONENTS (Modern CSS Classes)
+  ================================================================
+*/
+@layer components {
+  /* Main Containers */
+  .site-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  /* Buttons */
+  .btn-main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background-color: white;
+    color: var(--color-dark);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .btn-dark {
+    background-color: var(--color-dark);
+    color: white;
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  .btn-outline:hover{
+    background-color: white;
+    transform: translateY(-2px);
+    color: var(--color-dark);
+  }
+
+  /* Navigation Components */
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--spacing-header);
+  }
+
+  .nav-link {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* hero */
+
+  .header{
+    font-size: 60px;
+    font-weight: 700;
+    font-family: var(--font-sans);
+  }
+
+
+  .section-title{
+    font-size: 24px;
+    font-weight: 500;
+  }
+  
+  .section-link{
+    font-size: 22px;
+  }
+
+
+  .section-link:hover{
+    cursor: pointer;
+  }
+
+
+  /* Product Card System */
+
+  .product-card {
+    background: transparent;
+    text-align: left;
+  }
+
+  .img-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    overflow: hidden;
+    background-color: #f6f6f6;
+  }
+
+
+  .img-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.4s ease;
+    z-index: 1;
+  }
+
+  .product-card:hover .img-box::after {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .product-card:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Add to Cart Overlay Button */
+  .add-cart-btn {
+    position: absolute;
+    bottom: -60px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: white; 
+    color: var(--color-dark);
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    z-index: 5;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .product-card:hover .add-cart-btn {
+    bottom: 15px; 
+    cursor: pointer;
+  }
+
+  /* Cart & Checkout Elements */
+  .summary-box {
+    background-color: var(--color-secondary);
+    padding: 35px;
+    border-radius: var(--radius-card);
+  }
+
+  .checkout-card {
+    background: white;
+    padding: 40px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+  }
+
+  /* Form Elements */
+  .input-group input, .input-group select, .input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+
+  .input-group input:focus {
+    border-color: var(--color-dark);
+  }
+}
+
+/* ================================================================
+  4. CUSTOM UTILITIES (Specific Design Elements)
+  ================================================================
+*/
+@layer utilities {
+
+  .text-primary { color: var(--color-dark); }      
+  .text-secondary { color: var(--color-muted); }   
+  .text-accent { color: var(--color-accent); }    
+  .text-white-custom { color: #ffffff; }
+
+  /* Font Size & Style Utilities */
+  .text-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .text-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 600;
+  }
+
+  .text-body {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .text-nav {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .site-container {
+    width: 90%;
+    max-width: 1400px;
+    margin-inline: auto;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .section-padding {
+    padding-block: 80px;
+  }
+
+  /* নেভবার স্টিকি হলে এই শ্যাডোটি ব্যবহার হবে */
+  .nav-shadow {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* ================================================================
+  5. ANIMATIONS
+  ================================================================
+*/
+@layer utilities {
+  /* সাধারণ ফেড ইন */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  /* সার্চ বার বাম দিক থেকে প্রসারিত হওয়ার জন্য */
+  .animate-search-expand {
+    animation: searchExpand 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* মোবাইল মেনু বাম দিক থেকে আসার জন্য */
+  .animate-drawer-in {
+    animation: drawerIn 0.4s ease-out forwards;
+  }
+
+  /* কী-ফ্রেমসমূহ */
+  @keyframes fadeIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(10px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes searchExpand {
+    from { 
+      opacity: 0; 
+      width: 0; 
+      transform: translateX(20px); 
+    }
+    to { 
+      opacity: 1; 
+      width: 250px; 
+      transform: translateX(-35px); 
+    }
+  }
+
+  @keyframes drawerIn {
+    from { 
+      transform: translateX(-100%); 
+    }
+    to { 
+      transform: translateX(0); 
+    }
+  }
+}
+
+/* ================================================================
+  6. CUSTOM SCROLLBAR (Optional - For Luxury Look)
+  ================================================================
+*/
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-hover);
+}
+
