@@ -6,10 +6,11 @@ import { toast } from "react-hot-toast";
 import { resetPassword } from "../../../../lib/api";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import logo from "../../../../public/assets/logo.png";
+import logo from "../../../../../public/assets/logo.png"
 
 export default function ResetPassword() {
-  const { token } = useParams();
+  const token  = useParams();
+  console.log(token)
 const router = useRouter();
 
   const [password, setPassword] = useState("");
@@ -113,3 +114,6 @@ const router = useRouter();
     </div>
   );
 }
+
+
+
