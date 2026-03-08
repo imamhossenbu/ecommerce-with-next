@@ -58,7 +58,7 @@ const handleSubmit = async (e) => {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8 font-sans">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-black text-gray-800 tracking-tight">Settings</h2>
+        {/* <h2 className="text-2xl font-black text-gray-800 tracking-tight">Settings</h2> */}
       </div>
 
       {/* General Settings Section */}
