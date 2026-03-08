@@ -40,7 +40,6 @@ export default function Checkout() {
   const handlePayment = async (e) => {
     e.preventDefault();
     
-    // সিম্পল ভ্যালিডেশন
     if (!formData.email || !formData.phone || !formData.address) {
       return toast.error("Please fill in all required fields");
     }
