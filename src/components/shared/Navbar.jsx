@@ -10,6 +10,7 @@ import img from "../../../public/assets/logo.png";
 import AuthContext from '@/context/AuthContext';
 import { CartContext } from '@/context/CartContext';
 import { getProducts } from '@/lib/api';
+import { handleLogout } from '@/lib/axiosInstance';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,7 +24,7 @@ export default function Navbar() {
   const [filteredResults, setFilteredResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { cartItems } = useContext(CartContext);
   const router = useRouter(); 
   const searchRef = useRef(null);
@@ -172,7 +173,7 @@ export default function Navbar() {
                       <Link href={user.role === 'admin' ? '/admin/dashboard' : '/profile'} onClick={() => setIsUserMenuOpen(false)} className="flex items-center gap-3 px-5 py-3 text-[11px] font-black hover:bg-gray-50 uppercase tracking-tighter text-black">
                         <UserCircle size={16} /> {user.role === 'admin' ? 'Admin Panel' : 'My Account'}
                       </Link>
-                      <button onClick={logout} className="w-full flex items-center gap-3 px-5 py-3 text-[11px] font-black text-red-500 hover:bg-red-50 border-t border-gray-100 mt-1 uppercase"><LogOut size={16} /> Logout</button>
+                      <button onClick={handleLogout} className="w-full flex items-center gap-3 px-5 py-3 text-[11px] font-black text-red-500 hover:bg-red-50 border-t border-gray-100 mt-1 uppercase"><LogOut size={16} /> Logout</button>
                     </>
                   ) : (
                     <div className="flex flex-col">
