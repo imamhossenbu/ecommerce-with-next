@@ -16,6 +16,7 @@ import hero3 from '@/../public/assets/hero3.png'
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
+import Link from 'next/link';
 
 export default function Hero() {
   const images = [hero1, hero2, hero3];
@@ -73,12 +74,16 @@ export default function Hero() {
             </p>
             
             <div className="flex flex-wrap gap-4">
+              <Link href='/shop'>
               <button className="bg-white text-black px-10 py-4 rounded-full text-[14px] font-semibold hover:bg-pink-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
                 Shop Now
               </button>
+              </Link>
+              <Link href={'/about'}>
               <button className="bg-white/15 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-full text-[14px] font-medium hover:bg-white/25 transition-all duration-300 shadow-lg transform hover:-translate-y-1 cursor-pointer">
                 About Us
               </button>
+              </Link>
             </div>
           </motion.div>
         </div>
